@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #cdcdcd;
+}
+.header {
+  line-height: 60px;
+  background: #333;
+  font-size: 24px;
+  color: #fff;
+}
+
+.header-content {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.header-input {
+  width: 360px;
+  margin-top: 15px;
+  float: right;
+  line-height: 24px;
+  border-radius: 5px;
+  padding: 0 10px;
+  outline: none;
+}
+
+.undo-list,
+.do-list {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.undo-list-title,
+.do-list-title {
+  line-height: 30px;
+  font-size: 24px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.undo-list-count,
+.do-list-count {
+  float: right;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  text-align: center;
+  background: #e6e6e6;
+  border-radius: 50%;
+}
+
+.undo-list-ul,
+.do-list-ul {
+  list-style: none;
+}
+
+.undo-list-item,
+.do-list-item {
+  line-height: 32px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  background: #fff;
+  border-left: 3px solid #629a9c;
+  text-indent: 10px;
+  border-radius: 3px;
+}
+
+.undo-list-delete {
+  float: right;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  background: #e6e6e6;
+  text-indent: 0;
+  border-radius: 50%;
+  margin-top: 6px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.undo-list-input {
+  position: relative;
+  top: -1px;
+  width: 300px;
+  line-height: 22px;
+  font-size: 14px;
+  text-indent: 10px;
+  outline: none;
+}
+
+.undo-list-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  position: relative;
+  top: 3px;
+}
+
+.undo-item-checked {
+  opacity: 0.3;
+}
