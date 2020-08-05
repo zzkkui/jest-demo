@@ -1,50 +1,64 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { actions } from '../../../store/createStore'
 
 class UndoList extends Component {
-
-  state = {
-    count: 0
-  }
 
   inputRef = React.createRef();
 
   onClickDelete = (e, index) => {
     e.stopPropagation()
-    !this.props.list[index].isChecked && this.props.deleteUndoItem(index)
+    if (!this.props.undoItems[index].isChecked) {
+      const newUndoItems = [...this.props.undoItems]
+      newUndoItems.splice(index, 1)
+      this.props.changeItems(newUndoItems)
+    }
   }
 
   changeStatus = async (index) => {
-    const { list } = this.props;
-    if (!list[index].isFocus) {
-      await this.props.changeStatus(index)
+    const { undoItems } = this.props;
+    if (!undoItems[index].isFocus) {
+      const newUndoItems = [...undoItems]
+      newUndoItems[index].isFocus = !newUndoItems[index].isFocus
+      await this.props.changeItems(newUndoItems)
       this.inputRef.current && this.inputRef.current.focus()
     }
   }
 
   onBlurInputItem = (index) => {
-    this.props.changeStatus(index)
+    const newUndoItems = [...this.props.undoItems]
+    newUndoItems[index].isFocus = !newUndoItems[index].isFocus
+    this.props.changeItems(newUndoItems)
   }
 
   changeInputItem = (e, i) => {
-    this.props.changeInputItem(e.target.value, i)
+    const newUndoItems = [...this.props.undoItems]
+    newUndoItems[i] = {
+      ...newUndoItems[i],
+      value: e.target.value
+    }
+    this.props.changeItems(newUndoItems)
   }
 
   changeCheckout = (e, i) => {
     e.stopPropagation()
-    this.props.changeCheckout(i)
+    const newUndoItems = [...this.props.undoItems]
+    newUndoItems[i].isChecked = !newUndoItems[i].isChecked
+    this.props.changeItems(newUndoItems)
   }
 
   render() {
-    const { list } = this.props;
+    const { undoItems } = this.props;
     return (
       <div className="undo-list">
         <div className="undo-list-title">
           正在进行
-          <div className="undo-list-count" data-test="count">{list.length}</div>
+          <div className="undo-list-count" data-test="count">{undoItems.length}</div>
         </div>
         <ul className="undo-list-ul">
           {
-            list.map((n, i) =>
+            undoItems.map((n, i) =>
               <li className={`${n.isChecked ? "undo-item-checked" : ''} undo-list-item`} data-test="list-item" key={i} onClick={() => this.changeStatus(i)}>
                 <input className="undo-list-checkbox" type="checkbox" data-test="check-item" value={n.isChecked} onClick={(e) => this.changeCheckout(e, i)} />
                 {
@@ -61,4 +75,7 @@ class UndoList extends Component {
   }
 }
 
-export default UndoList
+export default connect(
+  ({ todo }) => ({ undoItems: todo.undoItems }),
+  { changeItems: actions.changeItems }
+)(UndoList)

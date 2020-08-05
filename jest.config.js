@@ -23,11 +23,11 @@ module.exports = {
   },
   "transformIgnorePatterns": [
     "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-    "^.+\\.module\\.(css|sass|scss)$"
+    "^.+\\.module\\.(css|sass|scss|less)$"
   ],
   "modulePaths": [],
   "moduleNameMapper": {
-    "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    "^.+\\.module\\.(css|sass|scss|less)$": "identity-obj-proxy"
   },
   "moduleFileExtensions": [
     "js",

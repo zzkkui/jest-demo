@@ -29,7 +29,6 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
         data-test="check-item"
         onClick={[Function]}
         type="checkbox"
-        value={false}
       />
       <input
         className="undo-list-input"
@@ -47,7 +46,7 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
       </div>
     </li>
     <li
-      className="undo-item-checked undo-list-item"
+      className=" undo-list-item"
       data-test="list-item"
       key="1"
       onClick={[Function]}
@@ -57,7 +56,6 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
         data-test="check-item"
         onClick={[Function]}
         type="checkbox"
-        value={true}
       />
       <span>
         TDD
@@ -81,7 +79,6 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
         data-test="check-item"
         onClick={[Function]}
         type="checkbox"
-        value={false}
       />
       <span>
         react

@@ -1,33 +1,34 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-class Header extends Component {
+import { actions } from '../../../store/createStore'
+
+export class Header extends Component {
 
   state = {
-    inputValue: ''
+    a: 1
   }
 
   onChangeInput = (e) => {
-    this.setState({
-      inputValue: e.target.value
-    })
+    this.props.changeInputValue(e.target.value)
   }
 
   onKeyUpInput = (e) => {
-    const { inputValue } = this.state
+    const { inputValue, undoItems } = this.props
     if (e.keyCode === 13 && inputValue) {
-      this.props.addUndoItem({
-        value: inputValue,
-        isFocus: false,
-        isChecked: false
-      })
-      this.setState({
-        inputValue: ''
-      })
+      this.props.changeItems([
+        ...undoItems,
+        {
+          value: inputValue,
+          isFocus: false,
+          isChecked: false
+        }])
+      this.props.changeInputValue('')
     }
   }
 
   render() {
-    const { inputValue } = this.state
+    const { inputValue } = this.props
     return (
       <div className="header">
         <div className="header-content">
@@ -39,4 +40,12 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default connect(({ todo }) => ({
+  inputValue: todo.inputValue,
+  undoItems: todo.undoItems
+}),
+  {
+    changeInputValue: actions.changeInputValue,
+    changeItems: actions.changeItems
+  }
+)(Header)

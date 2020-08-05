@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList 组件 样式渲染正常 1`] = `
+<div>
+  <Connect(Header) />
+  <Connect(UndoList) />
+  <DoList
+    list={Array []}
+  />
+</div>
+`;

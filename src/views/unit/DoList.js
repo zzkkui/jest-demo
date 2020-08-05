@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DoList from '../../components/DoList';
-import { findTestWrapper } from '../../../../utils/testUtils'
+// import { findTestWrapper } from '../../../../utils/testUtils'
 
 const listData = [{
   value: 'jest',
@@ -22,8 +22,6 @@ describe('DoList 组件', () => {
 
   it('样式渲染正常', () => {
     const warpper = shallow(<DoList list={listData} />)
-    const listItem = findTestWrapper(warpper, 'list-item')
-    expect(listItem.length).toBe(2)
     expect(warpper).toMatchSnapshot()
   })
 
