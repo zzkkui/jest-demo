@@ -2,10 +2,12 @@ import React from 'react';
 import { createStore } from 'redux'
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux'
-import axios from '../../__mocks__/axios'
+import axios from 'axios'
 import TodoListWap, { TodoList } from '../..';
 import { findTestWrapper } from '../../../../utils/testUtils'
 import { reducers, enhancer } from '../../../../store/createStore'
+
+jest.mock('axios')
 
 let store;
 

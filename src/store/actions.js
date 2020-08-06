@@ -13,7 +13,7 @@ export const changeItems = actionsBuilder(CHANGE_ITEMS)
 // 这里引入了 redux-thunk 所以 action 可以返回一个函数
 export const getItems = () => {
   return (dispatch) => {
-    axios.get('/undolist.json').then(res => {
+    return axios.get('/undolist.json').then(res => {
       // const actions = changeItems(res.data)
       // dispatch(actions)
       dispatch({
@@ -21,7 +21,11 @@ export const getItems = () => {
         value: res.data
       })
     }).catch(e => {
-      console.log(e)
+      // console.log(e)
+      dispatch({
+        type: CHANGE_ITEMS,
+        value: []
+      })
     })
   }
 }

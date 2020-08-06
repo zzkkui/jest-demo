@@ -2,7 +2,7 @@ import React from 'react';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme';
-import axios from '../../__mocks__/axios'
+import axios from 'axios'
 import TodoList from '../../index';
 import { reducers, enhancer } from '../../../../store/createStore'
 
@@ -18,6 +18,8 @@ import { reducers, enhancer } from '../../../../store/createStore'
 //     };
 //   }
 // }));
+
+jest.mock('axios')
 
 
 let store;
