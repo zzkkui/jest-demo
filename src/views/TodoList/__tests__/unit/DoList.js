@@ -22,7 +22,7 @@ describe('DoList 组件', () => {
 
   it('样式渲染正常', () => {
     const warpper = shallow(<DoList list={listData} />)
-    const listItem = findTestWrapper(warpper, 'list-item')
+    const listItem = findTestWrapper(warpper, 'do-list-item')
     expect(listItem.length).toBe(2)
     expect(warpper).toMatchSnapshot()
   })

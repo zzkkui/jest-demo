@@ -1,6 +1,6 @@
 import { CHANGE_INPUT_VALUE, CHANGE_ITEMS } from './contants'
 
-const initState = {
+export const initState = {
   inputValue: '',
   undoItems: []
 }

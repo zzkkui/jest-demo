@@ -1,8 +1,10 @@
 import React from 'react';
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme';
+import axios from '../../__mocks__/axios'
 import TodoList from '../../index';
-import store from '../../../../store/createStore'
+import { reducers, enhancer } from '../../../../store/createStore'
 
 // jest.mock("react-redux", () => ({
 //   connect(/* mapStateToProps, mapDispatchToProps */) {
@@ -17,19 +19,13 @@ import store from '../../../../store/createStore'
 //   }
 // }));
 
-const list = [{
-  value: 'jest',
-  isFocus: true,
-  isChecked: false
-}, {
-  value: 'TDD',
-  isFocus: false,
-  isChecked: false
-}, {
-  value: 'react',
-  isFocus: false,
-  isChecked: false
-}]
+
+let store;
+
+beforeEach(() => {
+  store = createStore(reducers, enhancer)
+  axios.success = true
+})
 
 describe('TodoList 组件', () => {
   it('样式渲染正常', () => {
@@ -58,7 +54,7 @@ describe('TodoList 组件', () => {
     expect(ele.prop('changeInputValue')).toBeTruthy()
     expect(ele.prop('changeItems')).toBeTruthy()
     expect(ele.prop('inputValue')).toBe('')
-    expect(ele.prop('undoItems')).toEqual([])
+    expect(ele.prop('undoItems')).toBeTruthy()
 
     //## 浅渲染， 只能 find 组件，不能 find 高阶组件
     // 需要 mock react-redux  不包括 redux 注入的 props
@@ -75,7 +71,7 @@ describe('TodoList 组件', () => {
   it('DoList 组件存在 list 属性', () => {
     const warpper = shallow(<TodoList store={store} />).find('TodoList').dive()
     const DoList = warpper.find('DoList')
-    expect(DoList.prop('list')).toEqual([])
+    expect(DoList.prop('list')).toBeTruthy()
   })
 });
 

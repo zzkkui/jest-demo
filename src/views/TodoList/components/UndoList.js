@@ -59,7 +59,7 @@ class UndoList extends Component {
         <ul className="undo-list-ul">
           {
             undoItems.map((n, i) =>
-              <li className={`${n.isChecked ? "undo-item-checked" : ''} undo-list-item`} data-test="list-item" key={i} onClick={() => this.changeStatus(i)}>
+              <li className={`${n.isChecked ? "undo-item-checked" : ''} undo-list-item`} data-test="undo-list-item" key={i} onClick={() => this.changeStatus(i)}>
                 <input className="undo-list-checkbox" type="checkbox" data-test="check-item" value={n.isChecked} onClick={(e) => this.changeCheckout(e, i)} />
                 {
                   n.isFocus ?

@@ -1,9 +1,10 @@
 
 import React from 'react';
+import { createStore } from 'redux'
 import { shallow } from 'enzyme';
 import UndoList from '../../components/UndoList';
 import { findTestWrapper } from '../../../../utils/testUtils'
-import store from '../../../../store/createStore'
+import { reducers, enhancer } from '../../../../store/createStore'
 
 const listData = [{
   value: 'jest',
@@ -18,6 +19,12 @@ const listData = [{
   isFocus: false,
   isChecked: false
 }]
+
+let store;
+
+beforeEach(() => {
+  store = createStore(reducers, enhancer)
+})
 
 describe('UndoList 组件', () => {
 
@@ -35,7 +42,7 @@ describe('UndoList 组件', () => {
       undoItems: []
     })
     const countEle = findTestWrapper(warpper, 'count')
-    const listItemEle = findTestWrapper(warpper, 'list-item')
+    const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     expect(countEle.text()).toBe("0")
     expect(listItemEle.length).toBe(0)
   })
@@ -46,7 +53,7 @@ describe('UndoList 组件', () => {
       undoItems: listData
     })
     const countEle = findTestWrapper(warpper, 'count')
-    const listItemEle = findTestWrapper(warpper, 'list-item')
+    const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     const deleteItems = findTestWrapper(warpper, 'delete-item')
     const checkItems = findTestWrapper(warpper, 'check-item')
     expect(countEle.text()).toBe("3")
@@ -112,7 +119,7 @@ describe('UndoList 组件', () => {
       changeItems: fn,
       undoItems: listData
     })
-    const listItemEle = findTestWrapper(warpper, 'list-item')
+    const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     listItemEle.at(index).simulate('click')
     // listItemEle.at(index).simulate('focus')
     // 这里只有 isFocus 为 true 的项才会调用 changeItems
@@ -142,7 +149,7 @@ describe('UndoList 组件', () => {
       changeItems: fn,
       undoItems: listData
     })
-    const listItemEle = findTestWrapper(warpper, 'list-item')
+    const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     listItemEle.at(index).simulate('click', {
       stopPropagation() { }
     })

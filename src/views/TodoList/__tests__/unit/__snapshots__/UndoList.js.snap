@@ -20,7 +20,7 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
   >
     <li
       className=" undo-list-item"
-      data-test="list-item"
+      data-test="undo-list-item"
       key="0"
       onClick={[Function]}
     >
@@ -48,7 +48,7 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
     </li>
     <li
       className="undo-item-checked undo-list-item"
-      data-test="list-item"
+      data-test="undo-list-item"
       key="1"
       onClick={[Function]}
     >
@@ -72,7 +72,7 @@ exports[`UndoList 组件 样式渲染正常 1`] = `
     </li>
     <li
       className=" undo-list-item"
-      data-test="list-item"
+      data-test="undo-list-item"
       key="2"
       onClick={[Function]}
     >

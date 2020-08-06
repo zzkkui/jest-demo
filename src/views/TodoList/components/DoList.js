@@ -11,7 +11,7 @@ const DoList = (props) => {
       <ul className="do-list-ul">
         {
           list.map((n, i) =>
-            n.isChecked ? <li className="do-list-item" data-test="list-item" key={i}>
+            n.isChecked ? <li className="do-list-item" data-test="do-list-item" key={i}>
               <span>{n.value}</span>
             </li> : '')
         }

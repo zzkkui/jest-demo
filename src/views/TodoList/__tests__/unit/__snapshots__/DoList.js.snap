@@ -41,7 +41,7 @@ exports[`DoList 组件 样式渲染正常 1`] = `
   >
     <li
       className="do-list-item"
-      data-test="list-item"
+      data-test="do-list-item"
       key="0"
     >
       <span>
@@ -50,7 +50,7 @@ exports[`DoList 组件 样式渲染正常 1`] = `
     </li>
     <li
       className="do-list-item"
-      data-test="list-item"
+      data-test="do-list-item"
       key="1"
     >
       <span>
