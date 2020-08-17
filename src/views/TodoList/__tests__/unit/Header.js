@@ -1,8 +1,11 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Header } from '../../components/Header';
+import configureStore from 'redux-mock-store'
+import HeaderWap, { Header } from '../../components/Header';
 import { findTestWrapper } from '../../../../utils/testUtils'
+
+const mockStore = configureStore([])
 
 describe('Header 组件', () => {
   it('样式渲染正常', () => {
@@ -46,7 +49,6 @@ describe('Header 组件', () => {
     const fn = jest.fn()
     const warpper = shallow(<Header inputValue={''} changeItems={fn} />)
     const inputEle = findTestWrapper(warpper, 'input')
-    warpper.setProps({ inputValue: '' })
     inputEle.simulate('keyUp', {
       keyCode: 13
     })
@@ -78,4 +80,48 @@ describe('Header 组件', () => {
     const newInputEle = findTestWrapper(warpper, 'input')
     expect(newInputEle.prop('value')).toEqual(afterInputValue)
   })
+
+  describe('Header 组件方法', () => {
+    it('测试 onChangeInput 方法', () => {
+      const fn = jest.fn()
+      const value = 'jest'
+      const e = { target: { value } }
+      const warpper = shallow(<Header changeInputValue={fn} />)
+      const spyFunction = jest.spyOn(warpper.instance(), 'onChangeInput');
+      warpper.instance().onChangeInput(e);
+      expect(spyFunction).toHaveBeenCalled();
+      expect(fn).toHaveBeenLastCalledWith(value);
+      spyFunction.mockRestore();
+    })
+
+    it('测试 onKeyUpInput 方法', () => {
+      const fn = jest.fn()
+      const fn1 = jest.fn()
+      const e = { keyCode: 13 }
+      const warpper = shallow(<Header inputValue={'jest'} undoItems={[]} changeInputValue={fn} changeItems={fn1} />)
+      const spyFunction = jest.spyOn(warpper.instance(), 'onKeyUpInput');
+      warpper.instance().onKeyUpInput(e);
+      expect(spyFunction).toHaveBeenCalled();
+      expect(fn).toHaveBeenLastCalledWith('');
+      expect(fn1).toHaveBeenCalled();
+      spyFunction.mockRestore();
+    })
+  });
+
+  describe('测试 connect 提供给 Header 的属性', () => {
+    // HeaderWap
+    const store = mockStore({
+      todo: {
+        undoItems: [],
+        inputValue: ''
+      },
+      changeInputValue: jest.fn(),
+      changeItems: jest.fn()
+    })
+    const warpper = shallow(<HeaderWap store={store} />).find('Header')
+    expect(warpper.prop('undoItems')).toBeTruthy()
+    expect(warpper.prop('inputValue')).toBe('')
+    expect(warpper.prop('changeInputValue')).toBeTruthy()
+    expect(warpper.prop('changeItems')).toBeTruthy()
+  });
 });

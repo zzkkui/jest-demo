@@ -2,7 +2,6 @@ import React from 'react';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme';
-import axios from 'axios'
 import TodoList from '../../index';
 import { reducers, enhancer } from '../../../../store/createStore'
 
@@ -19,14 +18,11 @@ import { reducers, enhancer } from '../../../../store/createStore'
 //   }
 // }));
 
-jest.mock('axios')
-
 
 let store;
 
 beforeEach(() => {
   store = createStore(reducers, enhancer)
-  axios.success = true
 })
 
 describe('TodoList 组件', () => {
@@ -48,7 +44,13 @@ describe('TodoList 组件', () => {
     // // 不包括 redux 注入的 props
     // // const ele = warpper.find('Connect(Header)')
     // console.log(ele.props())
-
+    // axios.get.mockImplementation((...args) => {
+    //   if (args[0] === '/init') {
+    //     return Promise.resolve({ data: {} })
+    //   } else if (args[0] === '/undolist.json') {
+    //     return Promise.resolve({ data: [] })
+    //   }
+    // })
     const warpper = mount(<Provider store={store}><TodoList /></Provider>)
     const ele = warpper.find('Header')
     // const ele = warpper.find('Connect(Header)')

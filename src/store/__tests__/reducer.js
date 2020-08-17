@@ -7,8 +7,20 @@ describe('reducer', () => {
       {
         inputValue: '',
         undoItems: [],
+        data: {}
       }
     )
+  })
+
+  it('测试 INIT_DATA', () => {
+    expect(
+      reducer('', {
+        type: types.INIT_DATA,
+        value: {
+          aa: 'aa'
+        }
+      })
+    ).toEqual({ data: { aa: 'aa' } })
   })
 
   it('测试 CHANGE_INPUT_VALUE', () => {

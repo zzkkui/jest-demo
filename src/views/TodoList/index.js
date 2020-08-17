@@ -13,7 +13,7 @@ export class TodoList extends Component {
     // setTimeout(() => {
     //   this.props.getItems()
     // }, 5000)
-
+    this.props.initData()
     this.props.getItems()
 
     // axios.get('/undolist.json').then(res => {
@@ -39,6 +39,7 @@ export default connect(
   ({ todo }) => ({ undoItems: todo.undoItems }),
   {
     getItems: actions.getItems,
-    changeItems: actions.changeItems
+    changeItems: actions.changeItems,
+    initData: actions.initData
   }
 )(TodoList)

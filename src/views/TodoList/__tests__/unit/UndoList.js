@@ -1,10 +1,12 @@
 
 import React from 'react';
 import { createStore } from 'redux'
+import configureStore from 'redux-mock-store'
 import { shallow } from 'enzyme';
 import UndoList from '../../components/UndoList';
 import { findTestWrapper } from '../../../../utils/testUtils'
 import { reducers, enhancer } from '../../../../store/createStore'
+
 
 const listData = [{
   value: 'jest',
@@ -20,27 +22,39 @@ const listData = [{
   isChecked: false
 }]
 
+// 两种创建 store 的方式
+// 1. 真实 store，真实 store 传进去，因为组件被 connect 封装，所以需要取到真实组件，然后 setProps 手动注入相关属性
+// 2. mock store 利用 redux-mock-store 工具（更适合用在测试 actions， 不太适合测试组件）
+
 let store;
 
 beforeEach(() => {
   store = createStore(reducers, enhancer)
 })
 
+const mockStore = configureStore([])
+
+// const changeItems = () => ({ type: 'CHANGE_ITEMS' })
+
 describe('UndoList 组件', () => {
 
   it('样式渲染正常', () => {
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
-    warpper.setProps({
-      undoItems: listData
+    const store = mockStore({
+      todo: {
+        undoItems: listData
+      }
     })
+    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
     expect(warpper).toMatchSnapshot()
   })
 
   it('传入的 list 为空数组', () => {
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
-    warpper.setProps({
-      undoItems: []
+    const store = mockStore({
+      todo: {
+        undoItems: []
+      }
     })
+    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
     const countEle = findTestWrapper(warpper, 'count')
     const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     expect(countEle.text()).toBe("0")
@@ -48,10 +62,12 @@ describe('UndoList 组件', () => {
   })
 
   it('传入的 list 不为空数组，展示数据，有删除按钮，有 checkbox', () => {
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
-    warpper.setProps({
-      undoItems: listData
+    const store = mockStore({
+      todo: {
+        undoItems: listData
+      }
     })
+    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
     const countEle = findTestWrapper(warpper, 'count')
     const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     const deleteItems = findTestWrapper(warpper, 'delete-item')
@@ -63,12 +79,24 @@ describe('UndoList 组件', () => {
   })
 
   it('未选中的项，点击删除按钮，会调用传入的 changeItems 方法', () => {
+    const store = mockStore({
+      todo: {
+        undoItems: listData
+      }
+    })
     const fn = jest.fn()
-    const index = 1
+    const index = 0
     const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+
+    // 这种适合在测试 actions，不适合在组件中测试，跟页面没有交互
+    // store.dispatch(changeItems())
+    // const actions = store.getActions()
+    // console.log(actions)
+    // const expectedPayload = { type: 'CHANGE_ITEMS' }
+    // expect(actions).toEqual([expectedPayload])
+
     warpper.setProps({
       changeItems: fn,
-      undoItems: listData
     })
     const deleteItems = findTestWrapper(warpper, 'delete-item')
     deleteItems.at(index).simulate('click', {
@@ -76,17 +104,22 @@ describe('UndoList 组件', () => {
       stopPropagation() { }
     })
     if (!listData[index].isChecked) {
-      expect(fn).toHaveBeenLastCalledWith(listData[index])
+      // console.log(1)
+      expect(fn).toHaveBeenLastCalledWith([listData[1], listData[2]])
     }
   })
 
   it('已经选中的项，点击删除按钮，不会调用传入的 deleteUndoItem 方法', () => {
+    const store = mockStore({
+      todo: {
+        undoItems: listData
+      }
+    })
     const fn = jest.fn()
     const index = 1
     const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
     warpper.setProps({
       changeItems: fn,
-      undoItems: listData
     })
     const deleteItems = findTestWrapper(warpper, 'delete-item')
     deleteItems.at(index).simulate('click', {
