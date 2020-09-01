@@ -72,8 +72,9 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start-gitpod": "cross-env DANGEROUSLY_DISABLE_HOST_CHECK='true' node scripts/start.js",
     "build": "node scripts/build.js",
-    "build-sourcemap": "SET GENERATE_SOURCEMAP=false && npm run build",
+    "build-sourcemap": "cross-env GENERATE_SOURCEMAP=false && npm run build",
     "profile": "node scripts/build.js --profile",
     "test": "node scripts/test.js",
     "coverage": "node scripts/test.js --coverage --watchAll=false"
@@ -102,6 +103,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "jest-enzyme": "^7.1.2"
