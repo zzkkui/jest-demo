@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DoList = (props) => {
+function DList(props) {
   const { list } = props;
   return (
     <div className="do-list">
@@ -20,4 +20,4 @@ const DoList = (props) => {
   )
 }
 
-export default DoList
+export default DList

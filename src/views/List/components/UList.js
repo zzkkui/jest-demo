@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { actions } from '../../../store/createStore'
 
-class UndoList extends Component {
+class UList extends Component {
 
   inputRef = React.createRef();
 
@@ -78,4 +78,4 @@ class UndoList extends Component {
 export default connect(
   ({ todo }) => ({ undoItems: todo.undoItems }),
   { changeItems: actions.changeItems }
-)(UndoList)
+)(UList)

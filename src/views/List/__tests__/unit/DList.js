@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import DoList from '../../components/DoList';
+import { shallow, mount, render } from 'enzyme';
+import DList from '../../components/DList';
 import { findTestWrapper } from '../../../../utils/testUtils'
 
 const listData = [{
@@ -18,17 +18,17 @@ const listData = [{
   isChecked: false
 }]
 
-describe('DoList 组件', () => {
+describe('DList 组件', () => {
 
   it('样式渲染正常', () => {
-    const warpper = mount(<DoList list={listData} />)
+    const warpper = mount(<DList list={listData} />)
     const listItem = findTestWrapper(warpper, 'do-list-item')
     expect(listItem.length).toBe(2)
     expect(warpper).toMatchSnapshot()
   })
 
   it('数据为空时样式渲染正常', () => {
-    const warpper = shallow(<DoList list={[]} />)
+    const warpper = shallow(<DList list={[]} />)
     expect(warpper).toMatchSnapshot()
   })
 });

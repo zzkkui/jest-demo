@@ -2,7 +2,7 @@ import React from 'react';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme';
-import TodoList from '../../index';
+import List from '../../index';
 import { reducers, enhancer } from '../../../../store/createStore'
 
 // jest.mock("react-redux", () => ({
@@ -25,20 +25,20 @@ beforeEach(() => {
   store = createStore(reducers, enhancer)
 })
 
-describe('TodoList 组件', () => {
+describe('List 组件', () => {
   it('样式渲染正常', () => {
-    const warpper = shallow(<TodoList store={store} />).find('TodoList').dive()
+    const warpper = shallow(<List store={store} />).find('List').dive()
     expect(warpper).toMatchSnapshot()
   })
 
   // it('初始化列表为空', () => {
-  //   const warpper = shallow(<Provider store={store}><TodoList /></Provider>)
+  //   const warpper = shallow(<Provider store={store}><List /></Provider>)
   //   // console.log(warpper.prop('value').store.getState().todo.undoItems)
   //   expect((warpper.prop('value').store.getState().todo.undoItems)).toEqual([])
   // })
 
   it('Header 组件存在 changeInputValue、changeItems、inputValue、undoItems 属性', () => {
-    // const warpper = mount(shallow(<Provider store={store}><TodoList /></Provider>).get(0))
+    // const warpper = mount(shallow(<Provider store={store}><List /></Provider>).get(0))
     // //包括 redux 注入的 props
     // const ele = warpper.find('Header')
     // // 不包括 redux 注入的 props
@@ -51,7 +51,7 @@ describe('TodoList 组件', () => {
     //     return Promise.resolve({ data: [] })
     //   }
     // })
-    const warpper = mount(<Provider store={store}><TodoList /></Provider>)
+    const warpper = mount(<Provider store={store}><List /></Provider>)
     const ele = warpper.find('Header')
     // const ele = warpper.find('Connect(Header)')
     // console.log(ele.props())
@@ -62,20 +62,20 @@ describe('TodoList 组件', () => {
 
     //## 浅渲染， 只能 find 组件，不能 find 高阶组件
     // 需要 mock react-redux  不包括 redux 注入的 props
-    // const warpper = shallow(<TodoList />).first().shallow()
+    // const warpper = shallow(<List />).first().shallow()
     // const ele = warpper.find('Connect(Header)')
     // console.log(ele.props())
 
     // 不包括 redux 注入的 props
-    // const warpper = shallow(<TodoList store={store} />).find('TodoList').dive()
+    // const warpper = shallow(<List store={store} />).find('List').dive()
     // const ele = warpper.find('Connect(Header)')
     // console.log(ele.props())
   })
 
-  it('DoList 组件存在 list 属性', () => {
-    const warpper = shallow(<TodoList store={store} />).find('TodoList').dive()
-    const DoList = warpper.find('DoList')
-    expect(DoList.prop('list')).toBeTruthy()
+  it('DList 组件存在 list 属性', () => {
+    const warpper = shallow(<List store={store} />).find('List').dive()
+    const DList = warpper.find('DList')
+    expect(DList.prop('list')).toBeTruthy()
   })
 });
 

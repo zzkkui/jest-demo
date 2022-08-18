@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux'
 import axios from 'axios'
-import TodoListWap, { TodoList } from '../..';
+import ListWap, { List } from '../..';
 import { findTestWrapper } from '../../../../utils/testUtils'
 import { reducers, enhancer } from '../../../../store/createStore'
 
@@ -29,7 +29,7 @@ beforeEach(() => {
   jest.useFakeTimers()
 })
 
-describe('TodoList 集成测试', () => {
+describe('List 集成测试', () => {
   it(`
     1. Header 输入框输入内容
     2. 点击回车
@@ -42,7 +42,7 @@ describe('TodoList 集成测试', () => {
         return Promise.resolve({ data: [] })
       }
     })
-    const warpper = mount(<Provider store={store}><TodoListWap /></Provider>)
+    const warpper = mount(<Provider store={store}><ListWap /></Provider>)
     const headerInputValue = 'jest'
     const inputEle = findTestWrapper(warpper, 'input')
     inputEle.simulate('change', {
@@ -63,7 +63,7 @@ describe('TodoList 集成测试', () => {
     2. 应该展示接口返回的数据
   `, (done) => {
     // 测试生命周期
-    // const componentDidMountSpy = jest.spyOn(TodoList.prototype, 'componentDidMount');
+    // const componentDidMountSpy = jest.spyOn(List.prototype, 'componentDidMount');
     axios.get.mockImplementation((...args) => {
       if (args[0] === '/init') {
         return Promise.resolve({ data: { aa: 'aa' } })
@@ -71,7 +71,7 @@ describe('TodoList 集成测试', () => {
         return Promise.resolve({ data: listItem })
       }
     })
-    const warpper = mount(<Provider store={store}><TodoListWap /></Provider>)
+    const warpper = mount(<Provider store={store}><ListWap /></Provider>)
     // expect(componentDidMountSpy).toHaveBeenCalled();
     // componentDidMountSpy.mockReset();
     // componentDidMountSpy.mockRestore();
@@ -98,7 +98,7 @@ describe('TodoList 集成测试', () => {
         return Promise.reject(new Error(500))
       }
     })
-    const warpper = mount(<Provider store={store}><TodoListWap /></Provider>)
+    const warpper = mount(<Provider store={store}><ListWap /></Provider>)
     // 或者 setTimeout
     process.nextTick(() => {
       // 更新

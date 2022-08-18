@@ -3,7 +3,7 @@ import React from 'react';
 import { createStore } from 'redux'
 import configureStore from 'redux-mock-store'
 import { shallow } from 'enzyme';
-import UndoList from '../../components/UndoList';
+import UList from '../../components/UList';
 import { findTestWrapper } from '../../../../utils/testUtils'
 import { reducers, enhancer } from '../../../../store/createStore'
 
@@ -36,7 +36,7 @@ const mockStore = configureStore([])
 
 // const changeItems = () => ({ type: 'CHANGE_ITEMS' })
 
-describe('UndoList 组件', () => {
+describe('UList 组件', () => {
 
   it('样式渲染正常', () => {
     const store = mockStore({
@@ -44,7 +44,7 @@ describe('UndoList 组件', () => {
         undoItems: listData
       }
     })
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     expect(warpper).toMatchSnapshot()
   })
 
@@ -54,7 +54,7 @@ describe('UndoList 组件', () => {
         undoItems: []
       }
     })
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     const countEle = findTestWrapper(warpper, 'count')
     const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     expect(countEle.text()).toBe("0")
@@ -67,7 +67,7 @@ describe('UndoList 组件', () => {
         undoItems: listData
       }
     })
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     const countEle = findTestWrapper(warpper, 'count')
     const listItemEle = findTestWrapper(warpper, 'undo-list-item')
     const deleteItems = findTestWrapper(warpper, 'delete-item')
@@ -86,7 +86,7 @@ describe('UndoList 组件', () => {
     })
     const fn = jest.fn()
     const index = 0
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
 
     // 这种适合在测试 actions，不适合在组件中测试，跟页面没有交互
     // store.dispatch(changeItems())
@@ -117,7 +117,7 @@ describe('UndoList 组件', () => {
     })
     const fn = jest.fn()
     const index = 1
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       changeItems: fn,
     })
@@ -147,7 +147,7 @@ describe('UndoList 组件', () => {
       isFocus: false,
       isChecked: false
     }]
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       changeItems: fn,
       undoItems: listData
@@ -177,7 +177,7 @@ describe('UndoList 组件', () => {
       isFocus: false,
       isChecked: false
     }]
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       changeItems: fn,
       undoItems: listData
@@ -214,7 +214,7 @@ describe('UndoList 组件', () => {
       isFocus: false,
       isChecked: false
     }]
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       undoItems: listData
     })
@@ -238,7 +238,7 @@ describe('UndoList 组件', () => {
     }]
     const fn = jest.fn()
     const index = 0
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       undoItems: listData,
       changeItems: fn
@@ -272,7 +272,7 @@ describe('UndoList 组件', () => {
     const fn = jest.fn()
     const index = 0
     const userInput = 'jest-change'
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       undoItems: listData,
       changeItems: fn
@@ -309,7 +309,7 @@ describe('UndoList 组件', () => {
     }]
     const fn = jest.fn()
     const index = 0
-    const warpper = shallow(<UndoList store={store} />).find('UndoList').dive()
+    const warpper = shallow(<UList store={store} />).find('UList').dive()
     warpper.setProps({
       undoItems: listData,
       changeItems: fn

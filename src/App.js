@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import TodoList from './views/TodoList'
+import List from './views/List'
 import Home from './views/Home'
 import NotFound from './views/404'
 
@@ -14,7 +14,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/todo" exact>
-            <TodoList />
+            <List />
           </Route>
           <Route>
             <NotFound />

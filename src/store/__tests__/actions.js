@@ -2,7 +2,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import axios from 'axios'
-import fetchMock from 'fetch-mock'
+// import fetchMock from 'fetch-mock'
 import * as actions from '../actions'
 import * as types from '../contants'
 

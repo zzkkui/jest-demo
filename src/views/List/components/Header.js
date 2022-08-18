@@ -32,7 +32,7 @@ export class Header extends Component {
     return (
       <div className="header">
         <div className="header-content">
-          TodoList
+          List
           <input placeholder="AddTodo" className="header-input" data-test="input" value={inputValue} onChange={this.onChangeInput} onKeyUp={this.onKeyUpInput} />
         </div>
       </div>

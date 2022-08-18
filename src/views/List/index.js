@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Header from './components/Header'
-import UndoList from './components/UndoList'
-import DoList from './components/DoList'
+import UList from './components/UList'
+import DList from './components/DList'
 import { actions } from '../../store/createStore'
 import './index.css'
 
-export class TodoList extends Component {
+export class List extends Component {
 
   componentDidMount() {
     // setTimeout(() => {
@@ -28,8 +28,8 @@ export class TodoList extends Component {
     return (
       <div>
         <Header />
-        <UndoList />
-        <DoList list={undoItems} />
+        <UList />
+        <DList list={undoItems} />
       </div>
     )
   }
@@ -42,4 +42,4 @@ export default connect(
     changeItems: actions.changeItems,
     initData: actions.initData
   }
-)(TodoList)
+)(List)
